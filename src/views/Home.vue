@@ -8,11 +8,17 @@
       <v-btn @click="toastTest4">토스트 warning</v-btn>
       <v-btn @click="toastTest5">전역에러</v-btn>
     </div>
-    <h1>프로그래스 테스트</h1>
+    <h1>프로그레스바 테스트</h1>
     <div>
       <v-btn @click="barTest1">Start</v-btn>
       <v-btn @click="barTest2">Finish</v-btn>
       <v-btn @click="barTest3">Fail</v-btn>
+    </div>
+    <h1>Notify테스트</h1>
+    <div>
+      <v-btn @click="notiTest1">alert</v-btn>
+      <v-btn @click="notiTest2">confirm</v-btn>
+      <v-btn @click="notiTest3">prompt</v-btn>
     </div>
   </div>
 </template>
@@ -45,6 +51,27 @@
       barTest3() {
         this.$Progress.fail();
       },
+      async notiTest1() {
+        const res = await this.$notify.alert("테스트 내용입니다", "안내", {
+          icon : "mdi-video-4k-box",
+        })
+        console.log(res);
+      },
+      async notiTest2() {
+        const res = await this.$notify.confirm("테스트 내용입니다", "", {
+          icon : "mdi-cube-scan",
+          iconColor : "blue"
+        })
+        console.log(res);
+      },
+      async notiTest3() {
+        const res = await this.$notify.prompt("입력하세요.", "프롬프트", {
+          icon : "mdi-view-dashboard",
+          iconColor : "gray",
+          width : 200
+        })
+        console.log(res);
+      },      
     }
   }
 </script>
