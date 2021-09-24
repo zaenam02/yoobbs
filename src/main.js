@@ -8,9 +8,12 @@ import '@babel/polyfill'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 
+import titleMixin from './mixins/title-mixin';
+
 Vue.config.productionTip = false
 
 export function createApp(ctx) {
+	console.log('main.js createApp');
 	const router = createRouter();
 	const store = createStore();
 	sync(store, router);
@@ -22,6 +25,9 @@ export function createApp(ctx) {
 		vuetify,
 		render: h => h(App)
 	});
+
+	// createApp 함수 내부에 포함
+  Vue.mixin(titleMixin);
 
   return { app, router, store };
 }

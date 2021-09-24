@@ -62,6 +62,11 @@
           icon : "mdi-cube-scan",
           iconColor : "blue"
         })
+        if(res){
+          this.$notify.alert("확인");
+        } else {
+          this.$notify.alert("취소");
+        }
         console.log(res);
       },
       async notiTest3() {
@@ -70,8 +75,38 @@
           iconColor : "gray",
           width : 200
         })
+        if(!res){
+          this.$notify.alert("취소");
+        } else {
+          this.$notify.alert(res, "입력내용");        
+        }
         console.log(res);
-      },      
-    }
+      },
+    },
+
+    // 라이프사이클 확인
+    title() {
+      console.log("Home.vue title mixin");
+      return "My home";
+    },
+    serverPrefetch() {
+      console.log("Home.vue serverPrefetch");
+      return new Promise((resolve, reject) => {
+        console.log("Home.vue serverPrefetch Promise");
+        resolve();
+      });
+    },
+    beforeCreate() {
+      console.log("Home.vue beforeCreate");
+    },
+    created() {
+      console.log("Home.vue created ssrContext : ", this.$ssrContext);
+    },
+    beforeMount() {
+      console.log("Home.vue beforeMount");
+    },
+    mounted() {
+      console.log("Home.vue mounted");
+    },
   }
 </script>

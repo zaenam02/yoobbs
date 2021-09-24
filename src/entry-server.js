@@ -4,7 +4,13 @@ export default (ctx) => {
 	return new Promise((resolve, reject) => {
 		const { app, router, store } = createApp();
     // 서버쪽 URL 푸쉬
+		
+		console.log('entry-server.js before route.push');
+		
 		router.push(ctx.url);
+
+		console.log('entry-server.js after route.push')
+		
 		router.onReady(() => {
 			ctx.rendered = () => ctx.state = store.state;
 			const matchedComponents = router.getMatchedComponents();
