@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import modules from "./modules"; // 추가
 
 Vue.use(Vuex)
 
@@ -75,8 +76,7 @@ export function createStore() {
 		},
 		actions: {
 		},
-		modules: {
-		}
+		modules,
 	});
 	return store;
 }

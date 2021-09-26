@@ -7,7 +7,26 @@ const lib = {
     for(const key of Object.keys(obj)){
       result[key] = lib.deepCopy(obj[key]);
     }
+  },
+  async modelCall(fn, ...args){
+    try {
+      const result = await fn(...args);
+      return result;
+    } catch(e) {
+      console.trace(e);
+      return {err : e.message}
+    }  
   }
 }
+
+// modelCall : async (fn, ...args) => {
+// 	try {
+// 		const result = await fn(...args);
+// 		return result;
+// 	} catch(e) {
+// 		console.trace(e);
+// 		return {err : e.message}
+// 	}
+// }
 
 module.exports = lib;
