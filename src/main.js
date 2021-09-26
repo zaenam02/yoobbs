@@ -1,9 +1,12 @@
 import Vue from 'vue'
+import './plugins/axios'
 import App from './App.vue'
 import { createRouter } from './router'
 import { createStore } from './store'
 import { sync } from "vuex-router-sync"
+
 import vuetify from './plugins/vuetify'
+import './plugins/axios'
 import '@babel/polyfill'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'

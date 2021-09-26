@@ -20,6 +20,11 @@
       <v-btn @click="notiTest2">confirm</v-btn>
       <v-btn @click="notiTest3">prompt</v-btn>
     </div>
+    <h1>Axios테스트</h1>
+    <div>
+      <v-btn @click="axiosTest1">Test</v-btn>
+      <v-btn @click="axiosTest2">Error</v-btn>
+    </div>
   </div>
 </template>
 
@@ -81,6 +86,14 @@
           this.$notify.alert(res, "입력내용");        
         }
         console.log(res);
+      },
+      async axiosTest1() {
+        const result = await this.$axios.get('/api/member/test');
+        //console.log(result);
+      },
+      async axiosTest2() {
+        const result = await this.$axios.get('/api/error');
+        //console.log(result);
       },
     },
 
