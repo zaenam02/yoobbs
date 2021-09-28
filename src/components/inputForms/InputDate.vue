@@ -6,6 +6,7 @@
         :value="value"
         @input="onInput"
         @keyup="onKeyup"
+				:maxlength="max"
       >
 				<template v-slot:append>
 					<v-btn icon small tabindex="-1" @click="open">
@@ -45,6 +46,7 @@ export default {
   data() {
     return {
       modal: false,
+			max: 10,
 			date : "",
     };
   },
@@ -53,11 +55,40 @@ export default {
 			this.$emit('input', val);
 		},
     onKeyup(val) {
-			let value = this.value.length == 4 || this.value.length == 7 ? this.value + "-" : this.value;
-      if(value.length > 10){
-        value = value.substr(0, 10);
-      }
-			this.$emit('input', value);
+			let rtVal = this.value.replace(/[^\d]/g, "");
+			let pattern = /([\d]{0,4})([\d]{0,2})([\d]{0,2})/;		
+			const matchs = pattern.exec(rtVal);
+			rtVal = matchs[1];
+			if(matchs[2] != 0 && (matchs[2] < 1 || matchs[2] > 12))  matchs[2] = 12;
+			let lDay = this.lastDay(matchs[1], matchs[2]);
+			if(matchs[3] > Number(lDay)) {
+				matchs[3] = lDay
+			}
+			this.max = 10;
+			rtVal += matchs[2] ? '-'+ matchs[2] : "";
+			rtVal += matchs[3] ? '-'+ matchs[3] : "";
+			this.$emit('input', rtVal);
+		},
+		lastDay(year, month){
+			let rtVal = 0;
+			switch (String(month)) {
+				case '01': rtVal = 31; break;
+				case '02': 
+				  if(year%4 === 0) rtVal = 29;
+					else rtVal = 28;
+					break;
+				case '03': rtVal = 31; break;
+				case '04': rtVal = 30; break;
+				case '05': rtVal = 31; break;
+				case '06': rtVal = 30; break;
+				case '07': rtVal = 31; break;
+				case '08': rtVal = 31; break;
+				case '09': rtVal = 30; break;
+				case '10': rtVal = 31; break;
+				case '11': rtVal = 30; break;
+				case '12': rtVal = 31; break;
+			}
+			return rtVal;
 		},
 		open() {
 			const pattern = /^\d{4}-\d{2}-\d{2}$/;
